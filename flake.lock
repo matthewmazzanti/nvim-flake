@@ -1,0 +1,79 @@
+{
+  "nodes": {
+    "gruvbox-community-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1651270041,
+        "narHash": "sha256-CJsNX3WARtAzvPLitbg+k/Q6/ab5XHd6PglHYQkf94c=",
+        "owner": "gruvbox-community",
+        "repo": "gruvbox",
+        "rev": "34ad436b234c5095d46bb065c5b32780618df83f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gruvbox-community",
+        "ref": "master",
+        "repo": "gruvbox",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1655034456,
+        "narHash": "sha256-HXXyvGqZLa+2u8IPIRm/uNQiw+gBtTNu58YaXMJtKRc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "72b1ec0a79b1fc50f6cc0694c2f0b1eb384a932e",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "root": {
+      "inputs": {
+        "gruvbox-community-src": "gruvbox-community-src",
+        "nixpkgs": "nixpkgs",
+        "vim-easyclip-src": "vim-easyclip-src",
+        "vim-pgsql-src": "vim-pgsql-src"
+      }
+    },
+    "vim-easyclip-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1550518062,
+        "narHash": "sha256-KBHC95cswqsQinMze/nlI43WZkXMXrDuTfK3z4hHYPg=",
+        "owner": "svermeulen",
+        "repo": "vim-easyclip",
+        "rev": "f1a3b95463402b30dd1e22dae7d0b6ea858db2df",
+        "type": "github"
+      },
+      "original": {
+        "owner": "svermeulen",
+        "ref": "master",
+        "repo": "vim-easyclip",
+        "type": "github"
+      }
+    },
+    "vim-pgsql-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1638993234,
+        "narHash": "sha256-XMv3cU73X5TtAfCHexlIWWcMcHoiJcGMCsw1ZuWV6Xw=",
+        "owner": "lifepillar",
+        "repo": "pgsql.vim",
+        "rev": "736c9899163a7f4e212c1675d8a1fe42570a027a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lifepillar",
+        "ref": "master",
+        "repo": "pgsql.vim",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
