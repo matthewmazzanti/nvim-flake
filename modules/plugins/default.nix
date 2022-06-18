@@ -2,6 +2,7 @@
   imports = [
     ./easyclip
     ./lspconfig
+    ./telescope
     ./treesitter
   ];
 }

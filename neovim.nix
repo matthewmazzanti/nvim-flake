@@ -35,8 +35,6 @@ let
 
   plugins = with vimPlugins; cfg.plugins.start ++ [
     # Misc improvements
-    fzfWrapper
-    fzf-vim
     vim-closetag
     # todo: used?
     vim-fugitive
@@ -130,9 +128,9 @@ in stdenv.mkDerivation {
 
     cat "$src/init.lua" >> "$init"
 
-    cat << "EOF" >> "$init"
-    ${loadSetup cfg.setup}
-    EOF
+    # cat << "EOF" >> "$init"
+    # ${loadSetup cfg.setup}
+    # EOF
 
     ${linkFtPlugins cfg.ftplugins}
 

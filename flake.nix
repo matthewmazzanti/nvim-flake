@@ -58,7 +58,8 @@
       config = {
         easyclip.enable = true;
         lspconfig.enable = true;
-        treesitter.enable = false;
+        treesitter.enable = true;
+        telescope.enable = true;
       };
     };
     devShell.${system} = (pkgs.mkShell {

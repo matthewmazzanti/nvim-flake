@@ -163,19 +163,19 @@ xmap s <Nop>
 -- HOMEPAGE: https://github.com/junegunn/fzf.vim
 -- File picker and buffer management window
 -- TODO: Replace with telescope nvim
-vim.cmd([[
-let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob='!.git'"
-let g:fzf_layout = {
-\   'window': {
-\     'width': 90,
-\     'height': 25,
-\     'highlight': 'GruvboxAquaFaded',
-\     'border': 'sharp'
-\   }}
-
-nmap <silent> <leader>f :FZF --reverse<CR>
-nmap <silent> <leader>b :Buffers<CR>
-]])
+-- vim.cmd([[
+-- let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob='!.git'"
+-- let g:fzf_layout = {
+-- \   'window': {
+-- \     'width': 90,
+-- \     'height': 25,
+-- \     'highlight': 'GruvboxAquaFaded',
+-- \     'border': 'sharp'
+-- \   }}
+-- 
+-- nmap <silent> <leader>f :FZF --reverse<CR>
+-- nmap <silent> <leader>b :Buffers<CR>
+-- ]])
 
 
 -- PLUGIN: gruvbox
