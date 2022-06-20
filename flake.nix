@@ -4,44 +4,23 @@
       url = "github:svermeulen/vim-easyclip/master";
       flake = false;
     };
-
-    gruvbox-community-src = {
-      url = "github:gruvbox-community/gruvbox/master";
-      flake = false;
-    };
-
-    vim-pgsql-src = {
-      url = "github:lifepillar/pgsql.vim/master";
-      flake = false;
-    };
   };
 
   outputs = { nixpkgs, ... }@inputs: let
     system = "x86_64-linux";
 
     # Add flake inputs as vim plugins
+    # TODO: Upstream easyclip - or un-upstream everything?
     pluginOverlay = self: super: let
       buildPlugin = super.vimUtils.buildVimPluginFrom2Nix;
       versionOf = src: builtins.toString src.lastModified;
     in {
       vimPlugins = super.vimPlugins // {
-        gruvbox-community = buildPlugin {
-          pname = "gruvbox-community";
-          version = versionOf inputs.gruvbox-community-src;
-          src = inputs.gruvbox-community-src;
-        };
-
         vim-easyclip = buildPlugin {
           pname = "vim-easyclip";
           version = versionOf inputs.vim-easyclip-src;
           src = inputs.vim-easyclip-src;
           dependencies = with super.vimPlugins; [ vim-repeat ];
-        };
-
-        vim-pgsql = buildPlugin {
-          pname = "vim-pgsql";
-          version = versionOf inputs.vim-pgsql-src;
-          src = inputs.vim-pgsql-src;
         };
       };
     };

@@ -1,22 +1,5 @@
 {
   "nodes": {
-    "gruvbox-community-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1651270041,
-        "narHash": "sha256-CJsNX3WARtAzvPLitbg+k/Q6/ab5XHd6PglHYQkf94c=",
-        "owner": "gruvbox-community",
-        "repo": "gruvbox",
-        "rev": "34ad436b234c5095d46bb065c5b32780618df83f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "gruvbox-community",
-        "ref": "master",
-        "repo": "gruvbox",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1655034456,
@@ -33,10 +16,8 @@
     },
     "root": {
       "inputs": {
-        "gruvbox-community-src": "gruvbox-community-src",
         "nixpkgs": "nixpkgs",
-        "vim-easyclip-src": "vim-easyclip-src",
-        "vim-pgsql-src": "vim-pgsql-src"
+        "vim-easyclip-src": "vim-easyclip-src"
       }
     },
     "vim-easyclip-src": {
@@ -53,23 +34,6 @@
         "owner": "svermeulen",
         "ref": "master",
         "repo": "vim-easyclip",
-        "type": "github"
-      }
-    },
-    "vim-pgsql-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1638993234,
-        "narHash": "sha256-XMv3cU73X5TtAfCHexlIWWcMcHoiJcGMCsw1ZuWV6Xw=",
-        "owner": "lifepillar",
-        "repo": "pgsql.vim",
-        "rev": "736c9899163a7f4e212c1675d8a1fe42570a027a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lifepillar",
-        "ref": "master",
-        "repo": "pgsql.vim",
         "type": "github"
       }
     }
