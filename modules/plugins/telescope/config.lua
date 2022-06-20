@@ -7,16 +7,17 @@ telescope.setup({
         path_display = { "truncate" },
         mappings = {
             i = {
-                ["<esc>"] = actions.close,
+                ["<esc>"] = actions.close
             }
         }
     },
     pickers = {
         find_files = {
             find_command = {
-                "fd",
+                fdPath,
                 "--type", "f",
                 "--hidden",
+                "--exclude", ".git",
                 "--strip-cwd-prefix"
             }
         }

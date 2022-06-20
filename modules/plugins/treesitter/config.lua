@@ -25,5 +25,8 @@ treesitter.setup({
                 ["il"] = "@loop.inner",
             }
         }
+    },
+    autotag = {
+        enable = true,
     }
 })

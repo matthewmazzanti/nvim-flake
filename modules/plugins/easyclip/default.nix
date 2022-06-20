@@ -10,7 +10,7 @@ in {
     ];
 
     setup.${name} = pkgs.stdenv.mkDerivation {
-      name = "easyclip-setup";
+      name = "${name}-setup";
       src = ./.;
       buildCommand = ''
         mkdir -p "$out"

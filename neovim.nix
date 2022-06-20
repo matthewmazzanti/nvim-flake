@@ -34,25 +34,8 @@ let
   );
 
   plugins = with vimPlugins; cfg.plugins.start ++ [
-    # Misc improvements
-    vim-closetag
-    # todo: used?
-    vim-fugitive
-    vim-sandwich
-    vim-signature
-    camelcasemotion
-
     # Visuals
-    gruvbox-community
     lightline-vim
-
-    # Syntax
-    vim-pandoc-syntax
-    vim-pgsql
-    idris-vim
-    rust-vim
-    vim-glsl
-    vim-python-pep8-indent
 
     # Tree sitter / LSP
     nvim-compe
@@ -75,18 +58,23 @@ let
     ${mkScript linkFtPlugin ftplugins}
   '';
 
-  # Link configuration for a single plugin into config/lua
-  linkSetup = mkScript (name: pkg: ''
-    ln -s "${pkg}" "$cfg/lua/${name}"
-  '');
-
   # Lua to load plugins. Happens in two phases:
   # require, where the plugin is required and result added to the plugins table
   # setup, where the plugin's `setup` method is called, if present, with the above plugin table
   loadSetup = let
-    load = mkScript (name: _: ''plugins["${name}"] = require("${name}.config")'');
+    load = mkScript (name: pkg: ''plugins["${name}"] = load_plugin("${pkg}/config.lua")'');
   in setups: ''
-    local plugins = {}
+    local function load_plugin(path)
+      local res = dofile(path)
+
+      if res == nil then
+        return true
+      end
+
+      return res
+    end
+
+    plugins = {}
     ${load setups}
 
     for name, plugin in pairs(plugins) do
@@ -115,10 +103,6 @@ in stdenv.mkDerivation {
     # Load config into config directory
     mkdir -p "$cfg"
 
-    # Setup plugin directory
-    mkdir -p "$cfg/lua"
-    ${linkSetup cfg.setup}
-
     # setup init.lua
     init="$cfg/init.lua"
 
@@ -128,9 +112,9 @@ in stdenv.mkDerivation {
 
     cat "$src/init.lua" >> "$init"
 
-    # cat << "EOF" >> "$init"
-    # ${loadSetup cfg.setup}
-    # EOF
+    cat << "EOF" >> "$init"
+    ${loadSetup cfg.setup}
+    EOF
 
     ${linkFtPlugins cfg.ftplugins}
 

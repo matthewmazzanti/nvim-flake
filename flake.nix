@@ -20,7 +20,7 @@
     system = "x86_64-linux";
 
     # Add flake inputs as vim plugins
-    pluginOverlay = (self: super: let
+    pluginOverlay = self: super: let
       buildPlugin = super.vimUtils.buildVimPluginFrom2Nix;
       versionOf = src: builtins.toString src.lastModified;
     in {
@@ -44,7 +44,7 @@
           src = inputs.vim-pgsql-src;
         };
       };
-    });
+    };
 
     pkgs = import nixpkgs {
       inherit system;
@@ -56,16 +56,18 @@
   in rec {
     packages.${system}.default = pkgs.callPackage ./neovim.nix {
       config = {
+        camelcasemotion.enable = true;
         easyclip.enable = true;
+        gruvbox.enable = true;
         lspconfig.enable = true;
-        treesitter.enable = true;
+        python-indent.enable = true;
+        sandwich.enable = true;
         telescope.enable = true;
+        treesitter.enable = true;
       };
     };
+
     devShell.${system} = (pkgs.mkShell {
-      packages = with pkgs; [
-        neovim
-      ];
     });
   };
 }

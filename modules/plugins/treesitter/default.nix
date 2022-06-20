@@ -9,6 +9,7 @@ in {
     plugins.start = with pkgs.vimPlugins; [
       (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
       nvim-treesitter-textobjects
+      nvim-ts-autotag
     ];
 
     setup.${name} = pkgs.stdenv.mkDerivation {
