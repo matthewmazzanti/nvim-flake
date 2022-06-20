@@ -1,4 +1,4 @@
-{ config, pkgs, lib, stdenv, neovim, makeWrapper, vimPlugins }:
+{ config, pkgs, lib, stdenv, neovim-unwrapped, makeWrapper, vimPlugins, vimUtils }:
 let
   module = lib.evalModules {
     modules = [
@@ -13,33 +13,12 @@ let
 
   cfg = module.config;
 
-  pack = (vimPlugins:
-    let
-      # Generate code to link a single vim plugin into place
-      linkPlugin = (plugin: ''
-        ln -sf "${plugin}" "$start/${plugin.pname}"
-      '');
-
-      # Generate code for each plugin, render into usable script
-      linkPlugins = (plugins: builtins.concatStringsSep "\n" (map linkPlugin plugins));
-
-    in stdenv.mkDerivation {
-      name = "packdir";
-      buildCommand = ''
-        start="$out/pack/nix/start"
-        mkdir -p "$start"
-        ${linkPlugins vimPlugins}
-      '';
-    }
-  );
-
-  plugins = with vimPlugins; cfg.plugins.start ++ [
-    # Visuals
-    lightline-vim
-
-    # Tree sitter / LSP
-    nvim-compe
-  ];
+  packDir = vimUtils.packDir {
+    neovim = {
+      start = cfg.plugins.start;
+      opt = cfg.plugins.opt;
+    };
+  };
 
   # Make a script from an dict. Map each key/value to a string, collect into list, and join together
   # mkScript :: (Key -> a -> String) -> Dict -> String
@@ -92,7 +71,7 @@ in stdenv.mkDerivation {
     set -eo pipefail
 
     # Unwrapped neovim
-    nvim="${neovim}/bin/nvim"
+    nvim="${neovim-unwrapped}/bin/nvim"
 
     # Wrapped path
     bin="$out/bin/nvim"
@@ -107,7 +86,7 @@ in stdenv.mkDerivation {
     init="$cfg/init.lua"
 
     cat << "EOF" >> "$init"
-    vim.opt.packpath:prepend({"${pack plugins}"})
+    vim.opt.packpath:prepend({"${packDir}"})
     EOF
 
     cat "$src/init.lua" >> "$init"

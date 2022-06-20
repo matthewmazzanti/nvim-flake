@@ -25,5 +25,7 @@ in {
     ./sandwich
     ./telescope
     ./treesitter
+    ./lualine
+    ./fine-cmdline
   ];
 }

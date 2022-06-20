@@ -130,18 +130,3 @@ require('compe').setup {
         luasnip = true;
     };
 }
-
--- PLUGIN: lightline
--- HOMEPAGE: https://github.com/itchyny/lightline.vim
-vim.cmd([[
-" Lightline
-let g:lightline = { 'colorscheme': 'gruvbox' }
-let g:lightline.tabline_subseparator = { 'left': '', 'right': ''}
-let g:lightline.tabline = { 'right' : [ [ ] ] }
-let g:lightline.tab = {
-    \ 'active': [ 'filename', 'modified' ],
-    \ 'inactive': [ 'filename', 'modified' ] }
-let g:lightline.active = {
-    \ 'left': [ [ 'mode', 'paste'], ['readonly', 'relativepath', 'modified'] ],
-    \ 'right': [ [ 'lineinfo' ], [ 'percent' ] ] }
-]])

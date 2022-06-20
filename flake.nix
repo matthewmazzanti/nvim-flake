@@ -4,6 +4,11 @@
       url = "github:svermeulen/vim-easyclip/master";
       flake = false;
     };
+
+    vim-fine-cmdline-src = {
+      url = "github:vonheikemen/fine-cmdline.nvim/main";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, ... }@inputs: let
@@ -21,6 +26,13 @@
           version = versionOf inputs.vim-easyclip-src;
           src = inputs.vim-easyclip-src;
           dependencies = with super.vimPlugins; [ vim-repeat ];
+        };
+
+        vim-fine-cmdline = buildPlugin {
+          pname = "vim-fine-cmdline";
+          version = versionOf inputs.vim-fine-cmdline-src;
+          src = inputs.vim-fine-cmdline-src;
+          dependencies = with super.vimPlugins; [ nui-nvim ];
         };
       };
     };
@@ -43,6 +55,10 @@
         sandwich.enable = true;
         telescope.enable = true;
         treesitter.enable = true;
+        signature.enable = true;
+        fugitive.enable = true;
+        lualine.enable = true;
+        fine-cmdline.enable = true;
       };
     };
 

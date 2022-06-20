@@ -17,7 +17,8 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "vim-easyclip-src": "vim-easyclip-src"
+        "vim-easyclip-src": "vim-easyclip-src",
+        "vim-fine-cmdline-src": "vim-fine-cmdline-src"
       }
     },
     "vim-easyclip-src": {
@@ -34,6 +35,23 @@
         "owner": "svermeulen",
         "ref": "master",
         "repo": "vim-easyclip",
+        "type": "github"
+      }
+    },
+    "vim-fine-cmdline-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1655663744,
+        "narHash": "sha256-CXNl5YEBxUZSu0tE9p0ch79mxXfzp4QIMfXXcRmIbzw=",
+        "owner": "vonheikemen",
+        "repo": "fine-cmdline.nvim",
+        "rev": "bbd15518c72798b775a695b4801a0bd3ec45ba49",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vonheikemen",
+        "ref": "main",
+        "repo": "fine-cmdline.nvim",
         "type": "github"
       }
     }

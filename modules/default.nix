@@ -15,6 +15,7 @@
     plugins = {
       start = mkOption {
         type = listOf package;
+        default = [];
         description = ''
           Plugins to load on start
         '';
@@ -22,6 +23,7 @@
 
       opt = mkOption {
         type = listOf package;
+        default = [];
         description = ''
           Plugins to optionally load
         '';
