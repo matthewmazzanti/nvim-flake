@@ -18,7 +18,8 @@
       "inputs": {
         "nixpkgs": "nixpkgs",
         "vim-easyclip-src": "vim-easyclip-src",
-        "vim-fine-cmdline-src": "vim-fine-cmdline-src"
+        "vim-fine-cmdline-src": "vim-fine-cmdline-src",
+        "vim-searchbox-src": "vim-searchbox-src"
       }
     },
     "vim-easyclip-src": {
@@ -52,6 +53,23 @@
         "owner": "vonheikemen",
         "ref": "main",
         "repo": "fine-cmdline.nvim",
+        "type": "github"
+      }
+    },
+    "vim-searchbox-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1644524637,
+        "narHash": "sha256-vxcqh2ExTUsye19c2jXoPMrbuYojzyz9Dq7UIrxhAdM=",
+        "owner": "VonHeikemen",
+        "repo": "searchbox.nvim",
+        "rev": "bbb1c08a36d19517633430079ab0c61293e18b91",
+        "type": "github"
+      },
+      "original": {
+        "owner": "VonHeikemen",
+        "ref": "main",
+        "repo": "searchbox.nvim",
         "type": "github"
       }
     }

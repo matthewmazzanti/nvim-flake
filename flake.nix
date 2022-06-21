@@ -9,6 +9,11 @@
       url = "github:vonheikemen/fine-cmdline.nvim/main";
       flake = false;
     };
+
+    vim-searchbox-src = {
+      url = "github:VonHeikemen/searchbox.nvim/main";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, ... }@inputs: let
@@ -16,7 +21,7 @@
 
     # Add flake inputs as vim plugins
     # TODO: Upstream easyclip - or un-upstream everything?
-    pluginOverlay = self: super: let
+    pluginOverlay = _: super: let
       buildPlugin = super.vimUtils.buildVimPluginFrom2Nix;
       versionOf = src: builtins.toString src.lastModified;
     in {
@@ -34,6 +39,13 @@
           src = inputs.vim-fine-cmdline-src;
           dependencies = with super.vimPlugins; [ nui-nvim ];
         };
+
+        vim-searchbox = buildPlugin {
+          pname = "vim-searchbox";
+          version = versionOf inputs.vim-searchbox-src;
+          src = inputs.vim-searchbox-src;
+          dependencies = with super.vimPlugins; [ nui-nvim ];
+        };
       };
     };
 
@@ -48,17 +60,24 @@
     packages.${system}.default = pkgs.callPackage ./neovim.nix {
       config = {
         camelcasemotion.enable = true;
+        cmp.enable = true;
         easyclip.enable = true;
+        fugitive.enable = true;
         gruvbox.enable = true;
         lspconfig.enable = true;
+        lualine.enable = true;
+        # nix plugin for indent
+        nix.enable = true;
         python-indent.enable = true;
         sandwich.enable = true;
+        signature.enable = true;
         telescope.enable = true;
         treesitter.enable = true;
-        signature.enable = true;
-        fugitive.enable = true;
-        lualine.enable = true;
-        fine-cmdline.enable = true;
+
+        # WIP
+        # TODO: Improve these plugins - would love to move commandline to something more eye-candy
+        fine-cmdline.enable = false;
+        searchbox.enable = false;
       };
     };
 

@@ -6,9 +6,8 @@ treesitter.setup({
     -- Modules and its options go here
     highlight = { enable = true },
     indent = {
-        -- TODO: Indentation was wonky - check back in on status
+        -- TODO: Indentation doesn't seem to work in many languages, at least nix possibly go.
         enable = false,
-        -- disable = { "go" },
     },
     textobjects = {
         enable = true,
@@ -17,6 +16,7 @@ treesitter.setup({
 
             keymaps = {
                 -- You can use the capture groups defined in textobjects.scm
+                -- TODO: More textobjects? These don't seem to work everywhere
                 ["af"] = "@function.outer",
                 ["if"] = "@function.inner",
                 ["ac"] = "@class.outer",
@@ -26,6 +26,7 @@ treesitter.setup({
             }
         }
     },
+    -- Enable auto-closing tags for html (and some other languages probably)
     autotag = {
         enable = true,
     }

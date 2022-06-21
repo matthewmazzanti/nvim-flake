@@ -1,8 +1,25 @@
-{ ... }: let
+{ pkgs, ... }: let
   two-space = builtins.readFile ./two_space.lua;
   tab = builtins.readFile ./tab.lua;
-in {
-  config.ftplugins = {
+
+  # Make a script from an dict. Map each key/value to a string, collect into list, and join together
+  # mkScript :: (Key -> a -> String) -> Dict -> String
+  mkScript = with builtins; fn: set: concatStringsSep "\n" (attrValues (mapAttrs fn set));
+
+  # Link ftplugins into config/ftplugin directory
+  writeFtPlugins = with builtins; let
+    # Render a single ftplugin to a file
+    writeFtPlugin = (name: text: ''
+      cat << "EOF" >> "$out/ftplugin/${name}.lua"
+      ${text}
+      EOF
+    '');
+  in ftplugins: ''
+    mkdir -p "$out/ftplugin"
+    ${mkScript writeFtPlugin ftplugins}
+  '';
+
+  ftplugins = {
     # Tab based languages
     go = tab;
     c = tab;
@@ -27,4 +44,12 @@ in {
       vim.opt_local.spell = true
     '';
   };
+
+  ftpluginDrv = pkgs.stdenv.mkDerivation {
+    name = "ftplugin";
+    src = ./.;
+    buildCommand = writeFtPlugins ftplugins;
+  };
+in {
+  config.plugins.start = [ftpluginDrv];
 }

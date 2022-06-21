@@ -29,12 +29,5 @@
         '';
       };
     };
-
-    ftplugins = mkOption {
-      type = attrsOf string;
-      description = ''
-        files to write to $XDG_CONFIG_HOME/nvim/ftplugin
-      '';
-    };
   };
 }

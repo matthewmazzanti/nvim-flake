@@ -11,23 +11,21 @@ vim.opt.background = "dark"
 
 vim.cmd([[
 " Hack for clear bg, clean up
+" TODO: Clean this up somehow
 au ColorScheme * hi Normal ctermbg=none guibg=none
 colorscheme gruvbox
 
 highlight SignColumn ctermbg=none guibg=none
+
+" Set highlight groups to use "clear" background. TODO
+highlight link WinSeparator GruvboxGray
+
+" nui/fine-cmdline
+highlight link FloatBorder GruvboxGray
+
+" telescope
+highlight link TelescopeBorder GruvboxGray
+highlight link TelescopePromptBorder GruvboxGray
+highlight link TelescopeResultsBorder GruvboxGray
+highlight link TelescopePreviewBorder GruvboxGray
 ]])
-
-local function setup(plugins)
-    if plugins["telescope"] ~= nil then
-        vim.cmd([[
-            highlight link TelescopeBorder GruvboxGray
-            highlight link TelescopePromptBorder GruvboxGray
-            highlight link TelescopeResultsBorder GruvboxGray
-            highlight link TelescopePreviewBorder GruvboxGray
-        ]])
-    end
-end
-
-return {
-    setup = setup
-}

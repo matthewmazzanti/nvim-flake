@@ -15,17 +15,20 @@
     "python-indent" = vim-python-pep8-indent;
     "fugitive" = vim-fugitive;
     "signature" = vim-signature;
+    "nix" = vim-nix;
   }));
 in {
   imports = basicPlugins ++ [
     ./camelcasemotion
+    ./cmp
     ./easyclip
+    ./fine-cmdline
     ./gruvbox
     ./lspconfig
+    ./lualine
     ./sandwich
+    ./searchbox
     ./telescope
     ./treesitter
-    ./lualine
-    ./fine-cmdline
   ];
 }
