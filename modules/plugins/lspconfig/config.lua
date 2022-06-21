@@ -24,22 +24,26 @@ local on_attach = function(_, bufnr)
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 end
 
+-- TODO: Make this optional based on availability
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- TODO: Make config for this use recursive sub-modules
 for name, cmd in pairs(language_servers) do
-    lspconfig[name].setup {
+    lspconfig[name].setup({
         cmd = cmd,
         on_attach = on_attach,
+        capabilities = capabilities,
         flags = {
             debounce_text_changes = 150,
         }
-    }
+    })
 end
 
 lspconfig.sumneko_lua.setup({
     -- sumneko_lua passed as string
     cmd = { sumneko_lua },
     on_attach = on_attach,
+    capabilities = capabilities,
     flags = {
         debounce_text_changes = 150,
     },

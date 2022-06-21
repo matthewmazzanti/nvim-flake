@@ -2,7 +2,11 @@
 local cmp = require("cmp")
 
 -- What does this do?
-vim.opt.completeopt = {"menu", "menuone", "noselect"}
+vim.opt.completeopt = {
+    "menu",
+    "menuone",
+    "noselect"
+}
 
 cmp.setup({
     snippet = {
