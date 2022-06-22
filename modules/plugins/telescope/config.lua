@@ -8,6 +8,12 @@ local utils = require("telescope.utils")
 telescope.setup({
     defaults = {
         layout_strategy = "vertical",
+        layout_config = {
+            vertical = {
+                prompt_position = "top"
+            }
+        },
+        sorting_strategy = "ascending",
         prompt_title = false,
         results_title = false,
         path_display = { "truncate" },

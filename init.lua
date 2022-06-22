@@ -1,7 +1,7 @@
 -- GENERAL CONFIG --
 
 -- Show numbers on each line next to text. Relative numbers for jumps
--- Relativenumber may be a bit heavy on low-power systems
+-- relativenumber may be a bit heavy on low-power systems
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -17,7 +17,7 @@ vim.opt.backspace = {"indent", "eol", "start"}
 -- Line wrapping
 vim.opt.colorcolumn = "101"
 vim.opt.textwidth = 100
--- HELP: fo-table
+-- HELP: `fo-table`
 -- May be more options to explore here
 vim.opt.formatoptions = table.concat({
   "c", -- Auto wrap comments
@@ -77,13 +77,13 @@ vim.g.mapleader = ";"
 -- Copy to system clipboard where available
 vim.opt.clipboard = "unnamedplus"
 
--- TODO: Port to lua?
+-- TODO: Port to Lua?
 vim.cmd([[
 " Increase speed of mouse scrolling
 map <silent> <ScrollWheelUp> 5<C-Y>
 map <silent> <ScrollWheelDown> 5<C-E>
 
-" Filetypes
+" File types
 autocmd BufRead,BufNewFile *.conf setfiletype conf
 autocmd BufRead,BufNewFile *.nix setfiletype nix
 autocmd BufRead,BufNewFile .envrc setfiletype bash

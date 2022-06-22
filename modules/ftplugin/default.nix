@@ -29,6 +29,10 @@
       vim.opt_local.colorcolumn = "80"
       vim.opt_local.textwidth = 79
     '';
+    # Use vim :help for Lua files
+    lua = ''
+      vim.opt_local.keywordprg = ""
+    '';
 
     # Two-space languages
     javascript = two-space;

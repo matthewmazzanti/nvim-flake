@@ -34,14 +34,15 @@ treesitter.setup({
 
 -- PLUGIN: Spellsitter - spelling check for comments
 -- HOMEPAGE: https://github.com/lewis6991/spellsitter.nvim
-local spellsitter = require("spellsitter")
-
--- Turn on spelling check globally for spellsitter
--- TODO: Add more details to spell checking, specifically URL/email ignores
-vim.opt.spell = true
--- Disable caps check since I don't like to press shift
-vim.opt.spellcapcheck = ""
-
-spellsitter.setup({
-    enable = true
-})
+-- TODO: Improve this plugin. Currently, it causes too many red-underlines for my tastes
+-- local spellsitter = require("spellsitter")
+--
+-- -- Turn on spelling check globally for spellsitter
+-- -- TODO: Add more details to spell checking, specifically URL/email ignores
+-- vim.opt.spell = true
+-- -- Disable caps check since I don't like to press shift
+-- vim.opt.spellcapcheck = ""
+--
+-- spellsitter.setup({
+--     enable = true
+-- })
