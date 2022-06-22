@@ -1,7 +1,7 @@
 import itertools
 
 # This is a comment. This is a comment. This is a comment. This is a comment.
-# I am mispeeling this word
+# I am misspelling this word
 
 """
 this is not a comment, it is a string.... and can it keep going on and on and
