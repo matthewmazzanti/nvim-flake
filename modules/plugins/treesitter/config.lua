@@ -1,6 +1,6 @@
 -- PLUGIN: Treesitter - better syntax highlighting for most languages
 -- HOMEPAGE: https://github.com/nvim-treesitter/nvim-treesitter
-local treesitter = require('nvim-treesitter.configs')
+local treesitter = require("nvim-treesitter.configs")
 
 treesitter.setup({
     -- Modules and its options go here
@@ -30,4 +30,18 @@ treesitter.setup({
     autotag = {
         enable = true,
     }
+})
+
+-- PLUGIN: Spellsitter - spelling check for comments
+-- HOMEPAGE: https://github.com/lewis6991/spellsitter.nvim
+local spellsitter = require("spellsitter")
+
+-- Turn on spelling check globally for spellsitter
+-- TODO: Add more details to spell checking, specifically URL/email ignores
+vim.opt.spell = true
+-- Disable caps check since I don't like to press shift
+vim.opt.spellcapcheck = ""
+
+spellsitter.setup({
+    enable = true
 })

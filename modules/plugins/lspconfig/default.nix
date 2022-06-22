@@ -11,8 +11,9 @@
       gopls = {
         "${gopls}/bin/gopls"
       },
-      pylsp = {
-        "${python3Packages.python-lsp-server}/bin/pylsp"
+      pyright = {
+        "${nodePackages.pyright}/bin/pyright-langserver",
+        "--stdio"
       },
       tsserver = {
         "${nodePackages.typescript-language-server}/bin/typescript-language-server",
