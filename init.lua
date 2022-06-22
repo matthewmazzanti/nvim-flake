@@ -8,7 +8,7 @@ vim.opt.relativenumber = true
 -- Movement stuff
 -- Allow for mouse
 vim.opt.mouse = "a"
--- TODO: Why is this here?
+-- Remember cursor position during buffer switch
 vim.opt.startofline = false
 -- TODO: This still needed?
 vim.opt.backspace = {"indent", "eol", "start"}
@@ -62,13 +62,10 @@ vim.opt.undofile = true
 -- Auto-read changed files
 vim.opt.autoread = true
 
--- Don't show mode (using lualine)
-vim.opt.showmode = false
-
 -- Always show sign column for marks, errors
 vim.opt.signcolumn = "yes"
 
--- TODO: What does this do?
+-- Ignore insert completion messages
 vim.opt.shortmess:append("c")
 
 -- Set leader key for other commands

@@ -24,3 +24,6 @@ lualine.setup({
         lualine_z = {"location"}
     }
 })
+
+-- Don't show mode in command window
+vim.opt.showmode = false
