@@ -12,6 +12,11 @@ on and on
 def foobar():
     return True
 
+
 class Foobar:
     def __init__(self):
         self.asdf = "foobar"
+
+
+def foo_bar():
+    return "foo-bar"

@@ -59,7 +59,8 @@
   in rec {
     packages.${system}.default = pkgs.callPackage ./neovim.nix {
       config = {
-        camelcasemotion.enable = true;
+        camelcasemotion.enable = false;
+        wordmotion.enable = true;
         cmp.enable = true;
         easyclip.enable = true;
         fugitive.enable = true;

@@ -26,10 +26,9 @@ treesitter.setup({
             }
         }
     },
-    -- Enable auto-closing tags for html (and some other languages probably)
-    autotag = {
-        enable = true,
-    }
+})
+
+treesitter.setup({
 })
 
 -- PLUGIN: Spellsitter - spelling check for comments

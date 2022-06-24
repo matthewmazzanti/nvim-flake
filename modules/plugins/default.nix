@@ -16,6 +16,7 @@
     "fugitive" = vim-fugitive;
     "signature" = vim-signature;
     "nix" = vim-nix;
+    "wordmotion" = vim-wordmotion;
   }));
 in {
   imports = basicPlugins ++ [
