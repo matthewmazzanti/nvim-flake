@@ -1,4 +1,4 @@
-{ pkgs }: let
+pkgs: let
   # TODO: Find a way to write this in nix and convert to lua
   servers = with pkgs; ''
     local language_servers = {

@@ -12,7 +12,7 @@ let
         inherit lib;
       };
     };
-  in module.config;
+  in module.config.vim;
 
   packDir = vimUtils.packDir {
     neovim = {
@@ -29,7 +29,7 @@ let
   # require, where the plugin is required and result added to the plugins table
   # setup, where the plugin's `setup` method is called, if present, with the above plugin table
   loadSetup = let
-    load = mkScript (name: pkg: ''plugins["${name}"] = load_plugin("${pkg}/config.lua")'');
+    load = mkScript (name: pkg: ''plugins["${name}"] = load_plugin("${pkg}")'');
   in setups: ''
     local function load_plugin(path)
       local res = dofile(path)

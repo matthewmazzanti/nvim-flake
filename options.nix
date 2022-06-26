@@ -1,7 +1,7 @@
 { pkgs, lib, ... }: with lib; let
   # Add modules for simple vim plugins just based off of a plugin package
   mkBasicModule = name: plugins: { pkgs, lib, config, ... }: let
-    cfg = config.${name};
+    cfg = config.plugins.${name};
   in with lib; {
     options.plugins.${name} = {
       enable = mkEnableOption "Enable ${name}";
@@ -11,18 +11,13 @@
       };
     };
 
-    config = mkIf cfg.enable {
-      plugins.start = if types.isList plugins then plugins else [plugins];
+    config.vim = mkIf cfg.enable {
+      plugins.start = if isList plugins then plugins else [plugins];
 
       setup = if cfg.config == "" then {} else {
-        ${name} = pkgs.stdenv.mkDerivation {
-          name = "${name}-setup";
-          buildCommand = ''
-            mkdir -p "$out"
-            cat << "EOF" >> "$out"
-            ${cfg.config}
-            EOF
-          '';
+        ${name} = pkgs.writeTextFile {
+          name = "${name}-setup.lua";
+          text = cfg.config;
         };
       };
     };
@@ -67,7 +62,7 @@ in {
     ];
   };
 
-  options = {
+  options.vim = {
     ftplugin = mkOption {
       type = types.attrsOf types.string;
       default = {};

@@ -1,12 +1,12 @@
-{ lib, ... }: with builtins; {
+{ pkgs, lib, ... }: with builtins; {
   config = {
-    ftplugin = import ./ftplugin;
+    vim.ftplugin = import ./ftplugin;
 
     plugins = {
       # Language intellegence
       lspconfig = {
         enable = true;
-        config = import ./lspconfig inputs;
+        config = import ./lspconfig pkgs;
       };
       treesitter = {
         enable = true;
@@ -54,6 +54,10 @@
       fugitive.enable = true;
       telescope = {
         enable = true;
+        config = ''
+          local fdPath = "${pkgs.fd}/bin/fd"
+          ${readFile ./telescope.lua}
+        '';
       };
 
       # WIP
