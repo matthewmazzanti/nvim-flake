@@ -83,6 +83,9 @@
     };
 
     devShell.${system} = (pkgs.mkShell {
+      packages = with pkgs; [
+        luajit
+      ];
     });
   };
 }

@@ -1,10 +1,16 @@
 { lib, ... }: with lib; {
   imports = [
-    ./ftplugin
     ./plugins
   ];
 
   options = with types; {
+    ftplugin = {
+      type = attrsOf string;
+      description = ''
+        contents of ftplugins to load
+      '';
+    };
+
     setup = mkOption {
       type = attrsOf package;
       description = ''

@@ -1,21 +1,22 @@
 { config, pkgs, lib, stdenv, neovim, makeWrapper, vimPlugins, vimUtils, writeTextFile }:
 let
-  module = lib.evalModules {
-    modules = [
-      { imports = [ ./modules ]; }
-      config
-    ];
+  cfg = let
+    module = lib.evalModules {
+      modules = [
+        ./options.nix
+        ./config
+      ];
 
-    specialArgs = {
-      inherit pkgs;
+      specialArgs = {
+        inherit pkgs;
+        inherit lib;
+      };
     };
-  };
-
-  cfg = module.config;
+  in module.config;
 
   packDir = vimUtils.packDir {
     neovim = {
-      start = cfg.plugins.start;
+      start = [ftpluginDrv] ++ cfg.plugins.start;
       opt = cfg.plugins.opt;
     };
   };
@@ -50,10 +51,31 @@ let
     end
   '';
 
+  # TODO: Ensure that this is sourced with a higher priority than other plugins
+  ftpluginDrv = with builtins; let
+    # Render a single ftplugin to a file
+    # TODO: Use write file derivation for this?
+    writeFtPlugin = (name: text: ''
+      cat << "EOF" >> "$out/ftplugin/${name}.lua"
+      ${text}
+      EOF
+    '');
+
+   # Render all ftplugins into new plugins ftplugin directory
+    writeFtPlugins = ftplugins: ''
+      mkdir -p "$out/ftplugin"
+      ${mkScript writeFtPlugin ftplugins}
+    '';
+  in pkgs.stdenv.mkDerivation {
+    name = "ftplugin";
+    buildCommand = writeFtPlugins cfg.ftplugin;
+  };
+
   init = writeTextFile {
     name = "init.lua";
     text = ''
       vim.opt.packpath:prepend({"${packDir}"})
+      vim.opt.runtimepath:prepend({"${packDir}"})
 
       ${builtins.readFile ./init.lua}
 
@@ -64,10 +86,9 @@ let
 in stdenv.mkDerivation {
   name = "test";
   buildInputs = [ makeWrapper ];
+  # TODO: According to docs, there are a lot more startup options that can load files into the
+  # runtime - may be smart to unset those if they cause problems
   buildCommand = ''
-    # TODO: According to docs, there are a lot more startup options that can
-    # load files into the runtime - may be smart to unset those if they cause
-    # problems
     makeWrapper \
       "${neovim}/bin/nvim" \
       "$out/bin/nvim" \
