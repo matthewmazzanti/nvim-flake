@@ -63,8 +63,13 @@ in {
   };
 
   options.vim = {
+    compile = mkOption {
+      type = types.bool;
+      default = false;
+    };
+
     ftplugin = mkOption {
-      type = types.attrsOf types.string;
+      type = types.attrsOf types.str;
       default = {};
       description = ''
         contents of ftplugins to load
@@ -77,6 +82,11 @@ in {
       description = ''
         Lua config packages to link into $XDG_CONFIG_HOME/nvim/lua
       '';
+    };
+
+    init = mkOption {
+      type = types.str;
+      default = {};
     };
 
     plugins = {

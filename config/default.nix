@@ -1,6 +1,10 @@
 { pkgs, lib, ... }: with builtins; {
   config = {
-    vim.ftplugin = import ./ftplugin;
+    vim = {
+      ftplugin = import ./ftplugin;
+      init = readFile ./init.lua;
+      compile = false;
+    };
 
     plugins = {
       # Language intellegence

@@ -77,12 +77,11 @@ let
       vim.opt.packpath:prepend({"${packDir}"})
       vim.opt.runtimepath:prepend({"${packDir}"})
 
-      ${builtins.readFile ./init.lua}
+      ${cfg.init}
 
       ${loadSetup cfg.setup}
     '';
   };
-
 in stdenv.mkDerivation {
   name = "test";
   buildInputs = [ makeWrapper ];
