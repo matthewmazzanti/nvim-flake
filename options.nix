@@ -86,7 +86,7 @@ in {
 
     init = mkOption {
       type = types.str;
-      default = {};
+      default = "";
     };
 
     plugins = {

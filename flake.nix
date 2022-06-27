@@ -58,34 +58,11 @@
 
   in rec {
     packages.${system}.default = pkgs.callPackage ./neovim.nix {
-      config = {
-        camelcasemotion.enable = false;
-        wordmotion.enable = true;
-        cmp.enable = true;
-        easyclip.enable = true;
-        fugitive.enable = true;
-        gruvbox.enable = true;
-        lspconfig.enable = true;
-        lualine.enable = true;
-        # nix plugin for indent
-        nix.enable = true;
-        python-indent.enable = true;
-        sandwich.enable = true;
-        signature.enable = true;
-        telescope.enable = true;
-        treesitter.enable = true;
-
-        # WIP
-        # TODO: Improve these plugins - would love to move commandline to something more eye-candy
-        fine-cmdline.enable = false;
-        searchbox.enable = false;
-      };
+      profile = "mmazzanti";
     };
 
     devShell.${system} = (pkgs.mkShell {
-      packages = with pkgs; [
-        luajit
-      ];
+      packages = with pkgs; [ ];
     });
   };
 }

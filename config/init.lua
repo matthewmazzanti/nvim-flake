@@ -8,6 +8,9 @@ vim.opt.relativenumber = true
 -- Movement stuff
 -- Allow for mouse
 vim.opt.mouse = "a"
+-- Increase speed of mouse scrolling
+vim.keymap.set({"n", "v", "i"}, "<ScrollWheelUp>", "5<C-Y>", { silent = true })
+vim.keymap.set({"n", "v", "i"}, "<ScrollWheelDown>", "5<C-E>", { silent = true })
 -- Remember cursor position during buffer switch
 vim.opt.startofline = false
 -- TODO: This still needed?
@@ -17,7 +20,6 @@ vim.opt.backspace = {"indent", "eol", "start"}
 -- Line wrapping
 vim.opt.colorcolumn = "101"
 vim.opt.textwidth = 100
--- HELP: `fo-table`
 -- May be more options to explore here
 vim.opt.formatoptions = table.concat({
   "c", -- Auto wrap comments
@@ -74,14 +76,13 @@ vim.g.mapleader = ";"
 -- Copy to system clipboard where available
 vim.opt.clipboard = "unnamedplus"
 
--- Increase speed of mouse scrolling
-vim.keymap.set({"n", "v", "i"}, "<ScrollWheelUp>", "5<C-Y>", { silent = true })
-vim.keymap.set({"n", "v", "i"}, "<ScrollWheelDown>", "5<C-E>", { silent = true })
-
 -- TODO: Port to Lua?
 vim.cmd([[
 " File types
 autocmd BufRead,BufNewFile *.conf setfiletype conf
 autocmd BufRead,BufNewFile *.nix setfiletype nix
 autocmd BufRead,BufNewFile .envrc setfiletype bash
+
+" Clear jumps on startup
+clearjumps
 ]])

@@ -1,11 +1,19 @@
-{ config, pkgs, lib, stdenv, neovim, makeWrapper, vimPlugins, vimUtils, writeTextFile }:
-let
+{
+  profile ? null,
+  configure ? null,
+  # Core nixpkgs imports
+  pkgs, lib, stdenv,
+  # Derivation utils
+  makeWrapper, writeTextFile,
+  # Vim specific stuff
+  neovim, vimPlugins, vimUtils
+}: let
   cfg = let
     module = lib.evalModules {
-      modules = [
-        ./options.nix
-        ./config
-      ];
+      modules =
+        [ ./options.nix ]
+        ++ (if profile == null then [] else [(import ./config).${profile}])
+        ++ (if configure == null then [] else [configure]);
 
       specialArgs = {
         inherit pkgs;
@@ -14,11 +22,43 @@ let
     };
   in module.config.vim;
 
-  packDir = vimUtils.packDir {
-    neovim = {
-      start = [ftpluginDrv] ++ cfg.plugins.start;
-      opt = cfg.plugins.opt;
+  init = let
+    packDir = vimUtils.packDir {
+      neovim = {
+        start = [ftpluginDrv] ++ cfg.plugins.start;
+        opt = cfg.plugins.opt;
+      };
     };
+  in writeTextFile {
+    name = "init.lua";
+    text = ''
+      vim.opt.packpath:prepend({"${packDir}"})
+      vim.opt.runtimepath:prepend({"${packDir}"})
+
+      ${cfg.init}
+
+      ${loadSetup cfg.setup}
+    '';
+  };
+
+  # TODO: Ensure that this is sourced with a higher priority than other plugins
+  ftpluginDrv = with builtins; let
+    # Render a single ftplugin to a file
+    # TODO: Use writeFile derivations for this?
+    writeFtPlugin = name: text: ''
+      cat << "EOF" >> "$out/ftplugin/${name}.lua"
+      ${text}
+      EOF
+    '';
+
+   # Render all ftplugins into new plugins ftplugin directory
+    writeFtPlugins = ftplugins: ''
+      mkdir -p "$out/ftplugin"
+      ${mkScript writeFtPlugin ftplugins}
+    '';
+  in pkgs.stdenv.mkDerivation {
+    name = "ftplugin";
+    buildCommand = writeFtPlugins cfg.ftplugin;
   };
 
   # Make a script from an dict. Map each key/value to a string, collect into list, and join together
@@ -51,37 +91,6 @@ let
     end
   '';
 
-  # TODO: Ensure that this is sourced with a higher priority than other plugins
-  ftpluginDrv = with builtins; let
-    # Render a single ftplugin to a file
-    # TODO: Use write file derivation for this?
-    writeFtPlugin = (name: text: ''
-      cat << "EOF" >> "$out/ftplugin/${name}.lua"
-      ${text}
-      EOF
-    '');
-
-   # Render all ftplugins into new plugins ftplugin directory
-    writeFtPlugins = ftplugins: ''
-      mkdir -p "$out/ftplugin"
-      ${mkScript writeFtPlugin ftplugins}
-    '';
-  in pkgs.stdenv.mkDerivation {
-    name = "ftplugin";
-    buildCommand = writeFtPlugins cfg.ftplugin;
-  };
-
-  init = writeTextFile {
-    name = "init.lua";
-    text = ''
-      vim.opt.packpath:prepend({"${packDir}"})
-      vim.opt.runtimepath:prepend({"${packDir}"})
-
-      ${cfg.init}
-
-      ${loadSetup cfg.setup}
-    '';
-  };
 in stdenv.mkDerivation {
   name = "test";
   buildInputs = [ makeWrapper ];
