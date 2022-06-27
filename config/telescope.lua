@@ -61,20 +61,14 @@ local function spell()
     })
 end
 
-vim.cmd([[
-nnoremap <leader>f <cmd>lua plugins.telescope.files()<cr>
-nnoremap <leader>l <cmd>lua plugins.telescope.dir_files()<cr>
-nnoremap <leader>b <cmd>lua plugins.telescope.buffers()<cr>
-nnoremap <leader>j <cmd>lua plugins.telescope.jumps()<cr>
-nnoremap z= <cmd>lua plugins.telescope.spell()<cr>
-]])
+vim.keymap.set("n", "<leader>f", builtin.find_files)
+vim.keymap.set("n", "<leader>l", dir_files)
+vim.keymap.set("n", "<leader>b", builtin.buffers)
+vim.keymap.set("n", "<leader>j", builtin.jumplist)
+vim.keymap.set("n", "<leader>g", builtin.live_grep)
+vim.keymap.set("n", "=z", spell)
 
 return {
-    files = builtin.find_files,
-    dir_files = dir_files,
-    buffers = builtin.buffers,
-    jumps = builtin.jumps,
-    spell = spell,
     lsp = {
         defs = builtin.lsp_definitions,
         impls = builtin.lsp_implementations,

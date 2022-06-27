@@ -74,12 +74,12 @@ vim.g.mapleader = ";"
 -- Copy to system clipboard where available
 vim.opt.clipboard = "unnamedplus"
 
+-- Increase speed of mouse scrolling
+vim.keymap.set({"n", "v", "i"}, "<ScrollWheelUp>", "5<C-Y>", { silent = true })
+vim.keymap.set({"n", "v", "i"}, "<ScrollWheelDown>", "5<C-E>", { silent = true })
+
 -- TODO: Port to Lua?
 vim.cmd([[
-" Increase speed of mouse scrolling
-map <silent> <ScrollWheelUp> 5<C-Y>
-map <silent> <ScrollWheelDown> 5<C-E>
-
 " File types
 autocmd BufRead,BufNewFile *.conf setfiletype conf
 autocmd BufRead,BufNewFile *.nix setfiletype nix

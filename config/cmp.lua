@@ -37,6 +37,4 @@ cmp.setup({
     })
 })
 
-vim.cmd([[
-inoremap <C-n> <cmd>lua require("cmp").complete()<CR>
-]])
+vim.keymap.set("i", "<C-n>", cmp.complete)

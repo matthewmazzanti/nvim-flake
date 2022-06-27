@@ -37,11 +37,19 @@
       wordmotion.enable = true;
       sandwich = {
         enable = true;
-        config = readFile ./sandwich.lua;
+        config = ''
+          vim.keymap.set({"n", "x"}, "s", "<Nop>")
+        '';
       };
       easyclip = {
         enable = true;
-        config = readFile ./easyclip.lua;
+        config = ''
+          vim.g.EasyClipUseCutDefaults = 0
+          vim.keymap.set("n", "x", "<Plug>MoveMotionPlug")
+          vim.keymap.set("x", "x", "<Plug>MoveMotionXPlug")
+          vim.keymap.set("n", "xx", "<Plug>MoveMotionLinePlug")
+          vim.keymap.set("n", "X", "<Plug>MoveMotionEndOfLinePlug")
+        '';
       };
 
       # Visual enhancements
