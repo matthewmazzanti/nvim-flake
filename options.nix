@@ -24,10 +24,6 @@
   };
 
   mkImports = set: attrValues (mapAttrs mkBasicModule set);
-
-  # Definitions for basic plugins
-  basicPlugins = attrValues (mapAttrs mkBasicModule );
-
 in {
   imports = with pkgs.vimPlugins; mkImports {
     "python-indent" = vim-python-pep8-indent;

@@ -31,7 +31,7 @@ pkgs: let
       },
     }
 
-    local sumneko_lua = "${sumneko-lua-language-server}/bin/lua-language-server"
+    local sumneko_lua = { "${sumneko-lua-language-server}/bin/lua-language-server" }
   '';
 
 in ''

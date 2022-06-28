@@ -73,6 +73,6 @@ return {
         defs = builtin.lsp_definitions,
         impls = builtin.lsp_implementations,
         refs = builtin.lsp_references,
-        types = builtin.lsp_types,
+        types = builtin.lsp_type_definitions,
     }
 }
