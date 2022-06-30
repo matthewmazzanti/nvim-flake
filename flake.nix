@@ -57,8 +57,11 @@
     };
 
   in rec {
-    packages.${system}.default = pkgs.callPackage ./neovim.nix {
-      profile = "mmazzanti";
+    packages.${system} = rec {
+      default = pkgs.lib.makeOverridable (pkgs.callPackage ./neovim.nix {}) {
+        imports = [ profiles.mmazzanti ];
+      };
+      profiles = import ./config;
     };
 
     devShell.${system} = (pkgs.mkShell {

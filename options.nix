@@ -58,48 +58,56 @@ in {
     ];
   };
 
-  options.vim = {
-    compile = mkOption {
+  options = {
+    viAlias = mkOption {
       type = types.bool;
       default = false;
     };
 
-    ftplugin = mkOption {
-      type = types.attrsOf types.str;
-      default = {};
-      description = ''
-        contents of ftplugins to load
-      '';
+    vimAlias = mkOption {
+      type = types.bool;
+      default = false;
     };
 
-    setup = mkOption {
-      type = types.attrsOf types.package;
-      default = {};
-      description = ''
-        Lua config packages to link into $XDG_CONFIG_HOME/nvim/lua
-      '';
-    };
-
-    init = mkOption {
-      type = types.str;
-      default = "";
-    };
-
-    plugins = {
-      start = mkOption {
-        type = types.listOf types.package;
-        default = [];
+    # Options to configure vim itself
+    vim = {
+      ftplugin = mkOption {
+        type = types.attrsOf types.str;
+        default = {};
         description = ''
-          Plugins to load on start
+        contents of ftplugins to load
         '';
       };
 
-      opt = mkOption {
-        type = types.listOf types.package;
-        default = [];
+      setup = mkOption {
+        type = types.attrsOf types.package;
+        default = {};
         description = ''
-          Plugins to optionally load
+        Lua config packages to link into $XDG_CONFIG_HOME/nvim/lua
         '';
+      };
+
+      init = mkOption {
+        type = types.str;
+        default = "";
+      };
+
+      plugins = {
+        start = mkOption {
+          type = types.listOf types.package;
+          default = [];
+          description = ''
+          Plugins to load on start
+          '';
+        };
+
+        opt = mkOption {
+          type = types.listOf types.package;
+          default = [];
+          description = ''
+          Plugins to optionally load
+          '';
+        };
       };
     };
   };

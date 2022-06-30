@@ -1,19 +1,14 @@
 {
-  profile ? null,
-  configure ? null,
   # Core nixpkgs imports
   pkgs, lib, stdenv,
   # Derivation utils
   makeWrapper, writeTextFile,
   # Vim specific stuff
   neovim, vimPlugins, vimUtils
-}: let
+}: config: let
   cfg = let
     module = lib.evalModules {
-      modules =
-        [ ./options.nix ]
-        ++ (if profile == null then [] else [(import ./config).${profile}])
-        ++ (if configure == null then [] else [configure]);
+      modules = [ ./options.nix config ];
 
       specialArgs = {
         inherit pkgs;
