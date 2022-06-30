@@ -15,13 +15,13 @@
         inherit lib;
       };
     };
-  in module.config.vim;
+  in module.config;
 
   init = let
     packDir = vimUtils.packDir {
       neovim = {
-        start = [ftpluginDrv] ++ cfg.plugins.start;
-        opt = cfg.plugins.opt;
+        start = [ftpluginDrv] ++ cfg.vim.plugins.start;
+        opt = cfg.vim.plugins.opt;
       };
     };
   in writeTextFile {
@@ -30,9 +30,9 @@
       vim.opt.packpath:prepend({"${packDir}"})
       vim.opt.runtimepath:prepend({"${packDir}"})
 
-      ${cfg.init}
+      ${cfg.vim.init}
 
-      ${loadSetup cfg.setup}
+      ${loadSetup cfg.vim.setup}
     '';
   };
 
@@ -53,7 +53,7 @@
     '';
   in pkgs.stdenv.mkDerivation {
     name = "ftplugin";
-    buildCommand = writeFtPlugins cfg.ftplugin;
+    buildCommand = writeFtPlugins cfg.vim.ftplugin;
   };
 
   # Make a script from an dict. Map each key/value to a string, collect into list, and join together
@@ -97,5 +97,8 @@ in stdenv.mkDerivation {
       "$out/bin/nvim" \
       --add-flags '-u "${init}"' \
       --prefix PATH : "${pkgs.xdg-utils}/bin"
+
+    ${if cfg.viAlias then ''ln -s "$out/bin/nvim" "$out/bin/vi"'' else ""}
+    ${if cfg.vimAlias then ''ln -s "$out/bin/nvim" "$out/bin/vim"'' else ""}
   '';
 }
