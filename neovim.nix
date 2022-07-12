@@ -91,6 +91,7 @@ in stdenv.mkDerivation {
   buildInputs = [ makeWrapper ];
   # TODO: According to docs, there are a lot more startup options that can load files into the
   # runtime - may be smart to unset those if they cause problems
+  # TODO: Make aliasing part less terrible
   buildCommand = ''
     makeWrapper \
       "${neovim}/bin/nvim" \
