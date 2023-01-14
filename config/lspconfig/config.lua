@@ -22,6 +22,7 @@ local function setup(plugins)
         set("n", "[d", vim.lsp.diagnostic.goto_prev)
         set("n", "]d", vim.lsp.diagnostic.goto_next)
         set("n", "<leader>a", vim.lsp.buf.code_action)
+        set("n", "<leader>r", vim.lsp.buf.rename)
     end
 
     -- TODO: Make this optional based on availability

@@ -1,5 +1,7 @@
 pkgs: let
   # TODO: Find a way to write this in nix and convert to lua
+  # Not working on darwin
+  # hls = { "${haskell-language-server}/bin/haskell-language-server" },
   servers = with pkgs; ''
     local language_servers = {
       rust_analyzer = {
@@ -16,12 +18,10 @@ pkgs: let
         "${nodePackages.typescript-language-server}/bin/typescript-language-server",
         "--stdio"
       },
-      hls = {
-        "${haskell-language-server}/bin/haskell-language-server"
-      },
       ccls = {
         "${ccls}/bin/ccls"
       },
+
       rnix = {
         "${rnix-lsp}/bin/rnix-lsp"
       },

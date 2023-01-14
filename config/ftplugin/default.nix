@@ -25,6 +25,7 @@ in {
     yaml = two-space;
     nix = two-space;
     cpp = two-space;
+    h = two-space;
     markdown = ''
       ${two-space}
       vim.opt_local.spell = true

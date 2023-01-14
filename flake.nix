@@ -1,5 +1,7 @@
 {
   inputs = {
+    flake-utils.url = "github:numtide/flake-utils";
+
     vim-easyclip-src = {
       url = "github:svermeulen/vim-easyclip/master";
       flake = false;
@@ -16,9 +18,7 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs: let
-    system = "x86_64-linux";
-
+  outputs = { nixpkgs, flake-utils, ... }@inputs: let
     # Add flake inputs as vim plugins
     # TODO: Upstream easyclip - or un-upstream everything?
     pluginOverlay = _: super: let
@@ -49,23 +49,25 @@
       };
     };
 
-    pkgs = import nixpkgs {
-      inherit system;
-      overlays = [
-        pluginOverlay
-      ];
-    };
+    systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
 
-  in rec {
-    packages.${system} = rec {
-      default = pkgs.lib.makeOverridable (pkgs.callPackage ./neovim.nix {}) {
-        imports = [ profiles.mmazzanti ];
+  in flake-utils.lib.eachSystem systems (system:
+    let 
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          pluginOverlay
+        ];
       };
-      profiles = import ./config;
-    };
 
-    devShell.${system} = (pkgs.mkShell {
-      packages = with pkgs; [ ];
-    });
-  };
+      nvim-pkg = pkgs.callPackage ./neovim.nix {};
+    in rec {
+      packages = rec {
+        default = pkgs.lib.makeOverridable nvim-pkg {
+          imports = [ profiles.mmazzanti ];
+        };
+        profiles = import ./config;
+      };
+    }
+  );
 }

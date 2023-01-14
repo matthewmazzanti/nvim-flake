@@ -32,6 +32,7 @@ with builtins; rec {
         treesitter = {
           enable = true;
           config = readFile ./treesitter.lua;
+
           /*
           plugins = {
             textobjects.enable = true;
